@@ -245,7 +245,7 @@ sqlite_command::sqlite_command(sqlite_connection& conn, const char* sql) : stmt_
 
 bool sqlite_command::bind_blob(int param, const void* data, int bytes){
     FALSE_ON_NULL(stmt_);
-    return RESULT_OK(sqlite3_bind_blob(stmt_, param, data, bytes, NULL));
+    return RESULT_OK(sqlite3_bind_blob(stmt_, param, data, bytes, SQLITE_TRANSIENT));
 }
 
 bool sqlite_command::bind_double(int param, double value){
@@ -265,12 +265,12 @@ bool sqlite_command::bind_int64(int param, __int64 value){
 
 bool sqlite_command::bind_str(int param, const char* value){
     FALSE_ON_NULL(stmt_);
-    return RESULT_OK(sqlite3_bind_text(stmt_, param, value, -1, NULL));
+    return RESULT_OK(sqlite3_bind_text(stmt_, param, value, -1, SQLITE_TRANSIENT));
 }
 
 bool sqlite_command::bind_wstr(int param, const wchar_t* value){
     FALSE_ON_NULL(stmt_);
-    return RESULT_OK(sqlite3_bind_text16(stmt_, param, value, -1, NULL));
+    return RESULT_OK(sqlite3_bind_text16(stmt_, param, value, -1, SQLITE_TRANSIENT));
 }
 
 bool sqlite_command::execute(){
