@@ -312,7 +312,7 @@ const void* sqlite_reader::blob(int col, int& bytes){
 
 std::wstring sqlite_reader::wstr(int col){
     const wchar_t* text = (const wchar_t*)sqlite3_column_text16(command_.stmt_, col);
-    int len = sqlite3_column_bytes16(command_.stmt_, col);
+    int len = sqlite3_column_bytes16(command_.stmt_, col) / sizeof(wchar_t);
     return std::wstring(text, text+len);
 }
 
